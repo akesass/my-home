@@ -1,0 +1,26 @@
+# vim: filetype=zsh
+
+function gcd2(){
+	typeset -i arg1=$1
+	typeset -i arg2=$2
+	typeset -i tmp
+
+	(( arg2 )) || return $(( arg1 ))
+	while (( arg1 = arg1 % arg2 ))
+	do
+		(( tmp = arg1, arg1 = arg2, arg2 = tmp ))
+	done
+	(( arg2 ))
+}
+function gcd(){
+	typeset -i tmp=$1;
+
+	while (( $# >= 2 ))
+	do
+		shift
+		(( tmp = gcd2(tmp, $1) ))
+	done
+	(( tmp ))
+}
+
+gcd "$@"

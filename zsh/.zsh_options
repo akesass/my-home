@@ -1,0 +1,180 @@
+################################################################################
+# zshオプション
+################################################################################
+
+################################################################################
+# 16.2.1 Changing Directories
+################################################################################
+
+# 実行できなかったコマンドがディレクトリ名の場合、`cd コマンド名'を実行する
+setopt AUTO_CD
+
+# cdするときにpushdする
+setopt AUTO_PUSHD
+
+# ディレクトリスタック上に同一ディレクトリのコピーをpushdしない
+setopt PUSHD_IGNORE_DUPS
+
+# ディレクトリスタックの数値引数の`+'と`-'の意味を交換する
+#unsetopt PUSHD_MINUS
+
+# pushdやpopdの後に、ディレクトリスタックを表示しない
+setopt PUSHD_SILENT
+
+# 引数なしのpushdを`pushd $HOME'として扱う
+#unsetopt PUSHD_TO_HOME
+
+################################################################################
+# 16.2.2 補完
+################################################################################
+
+# 補完候補リストを表示する
+setopt AUTO_LIST
+
+# 補完候補リストをコンパクトに表示する
+setopt LIST_PACKED
+# ２番目の補完候補を１番目の候補の下(通常)ではなく、右に置く
+#unsetopt LIST_ROWS_FIRST
+
+# 補完候補をリストするときに、ファイルの最後に識別師を付ける
+setopt LIST_TYPES
+
+# ２回目の補完リクエストから自動的にメニュー補完(補完候補を挿入していく)を行う(MENU_COMPLETEを上書きする)
+#setopt AUTO_MENU
+
+# 補完リクエスト時に補完候補を次々に挿入していく(AUTO_MENUを上書きする)
+setopt MENU_COMPLETE
+
+
+################################################################################
+# 16.2.3 Expansion and Globbing
+################################################################################
+# `=コマンド名'をコマンドのフルパスに置き換える(`which コマンド名`)
+setopt EQUALS
+
+# `#', `~', `^'をファイル名生成パターンとして扱う
+# ^x	パターンxを除いたすべてにマッチする
+# x~y	パターンxにマッチしてyにマッチしない
+# x#	パターンxの0個以上の繰り返しにマッチ
+# x##	パターンxの1個以上の繰り返しにマッチ
+setopt EXTENDED_GLOB
+
+# `*', `(', `|', `<', `[', `?'をファイル名生成パターンとして扱う(globbing)
+setopt GLOB
+
+# `.'で始まるファイル名に明示的に指定しなくてもマッチする
+setopt GLOB_DOTS
+
+
+# ブレース展開を実行しない
+unsetopt IGNORE_BRACES
+# ブレース展開とは？(詳しくは、14.6 Brace Expansion)
+# `foo{xx,yy,zz}bar'は個別のワード`fooxxbar', `fooyybar', `foozzbar'に展開される
+# `{m..n}'(m,nは整数)はmからnまでの整数に展開される
+# 例1)	{1..5} --->  1 2 3 4 5
+# 例2)	{5..1} --->  5 4 3 2 1
+# 例3)	{001..005} --->  001 002 003 004 005
+
+
+
+################################################################################
+# 16.2.4 History
+################################################################################
+# `:<beginning time>:<elapsed seconds>:<command>'フォーマットでヒストリを保存する
+#unsetopt EXTENDED_HISTORY
+
+# 存在しないヒストリにアクセスしようとしたらBeep
+setopt HIST_BEEP
+
+# ヒストリリストに同じコマンドが追加された場合、古いのをリストから削除する(直前のものでなくても)
+setopt HIST_IGNORE_ALL_DUPS
+
+# スペースで始まるコマンドはヒストリに追加しない
+setopt HIST_IGNORE_SPACE
+
+# 関数定義はヒストリリストから削除する
+setopt HIST_NO_FUNCTIONS
+
+# ヒストリリストに追加するときに、先行するスペースを削除する
+setopt HIST_REDUCE_BLANKS
+
+# ヒストリファイルへの書込み時に重複する古いコマンドを削除する
+setopt HIST_SAVE_NO_DUPS
+
+# ヒストリ展開実行時に、直接実行せずにロードのみ行う
+setopt HIST_VERIFY
+
+setopt SHARE_HISTORY
+
+
+
+################################################################################
+# 16.2.6 Input/Output
+################################################################################
+# エイリアスを展開する
+setopt ALIASES
+
+# `>'	存在するファイルへのトランケートリダイレクションを許可する
+# `>>'	ファイル作成を許可する
+# setされていない場合、`>!' or `>|' とする
+setopt CLOBBER
+
+# コマンドのスペルミス修正を試みる
+#setopt CORRECT
+
+# ライン上の全ての引数のスペルミス修正を試みる
+setopt CORRECT_ALL
+
+# end-of-fileでexitしない
+unsetopt IGNORE_EOF
+
+# exitステータスがゼロでないプログラムの場合、exit値を表示する
+unsetopt PRINT_EXIT_VALUE
+
+# `rm *' or `rm path/*'を実行する前に、確認しない
+unsetopt RM_STAR_SILENT
+
+# `rm *' or `rm path/*'を実行する前に10秒待った後に確認する。
+unsetopt RM_STAR_WAIT
+
+# for, repeat, select, if, and function constructorsのショートカット形式を許可する
+unsetopt SHORT_LOOPS
+
+
+################################################################################
+# 16.2.8 Prompting
+################################################################################
+#PROMPT_BANG <K>
+#If set, ‘!’ is treated specially in prompt expansion. See Chapter 13 [Prompt Expansion], page 30.
+#
+# `!':現在のヒストリ番号に展開される。`!!':リテラル`!'
+setopt PROMPT_BANG
+#PROMPT_CR (+V) <D>
+#	Print a carriage return just before printing a prompt in the line editor. This is on
+#	by default as multi-line editing is only possible if the editor knows where the start
+#	of the line appears.
+# プロンプト表示前にCRを表示する。
+setopt PROMPT_CR
+#PROMPT_SP <D>
+#	Attempt to preserve a partial line (i.e. a line that did not end with a newline) that
+#	would otherwise be covered up by the command prompt due to the PROMPT CR
+#	option. This works by outputting some cursor-control characters, including a series
+#	of spaces, that should make the terminal wrap to the next line when a partial line
+#	is present (note that this is only successful if your terminal has automatic margins,
+#	which is typical).
+#	When a partial line is preserved, you will see an inverse+bold character at the end
+#	of the partial line: a "%" for a normal user or a "#" for root.
+#	NOTE: if the PROMPT CR option is not set, enabling this option will have no
+#	effect. This option is on by default.
+#PROMPT_PERCENT <C> <Z>
+# プロンプト展開で、`%'を特別に扱う。(詳細は、Chapter 13 Prompt Expansion を参照)
+setopt PROMPT_PERCENT
+
+# プロンプトでパラメータ展開、コマンド置換、算術展開を実行可能にする。
+setopt PROMPT_SUBST
+
+# コマンドラインを受け入れるときに、右プロンプトをディスプレイから削除する。
+setopt TRANSIENT_RPROMPT
+#TRANSIENT_RPROMPT
+#	Remove any right prompt from display when accepting a command line. This may
+#	be useful with terminals with other cut/paste methods.

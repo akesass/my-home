@@ -1,0 +1,154 @@
+12. Conditional Expressions
+
+A conditional expression is used with the [[ compound command to test attributes of files and to compare strings.
+Each expression can be constructed from one or more of the following unary or binary expressions:
+
+-a file
+	fileが存在する場合true
+
+-b file
+	fileが存在し、それがブロック特殊ファイルの場合true
+
+-c file
+	fileが存在し、それがキャラクタ特殊ファイルの場合true
+
+-d file
+	fileが存在し、それがディレクトリの場合true
+
+-e file
+	fileが存在する場合true
+
+-f file
+	fileが存在し、それが通常ファイルの場合true
+
+-g file
+	fileが存在し、setgidビットがセットされている場合true
+
+-h file
+	fileが存在し、それがシンボリックリンクの場合true
+
+-k file
+	fileが存在し、そのスティッキービットがセットされている場合true
+
+-n string
+	stringの長さがノンゼロの場合true
+
+-o option
+	optionがonの場合true
+
+-p file
+	fileが存在し、それがFIFO特殊ファイル(名前付きパイプ)の場合true
+
+-r file
+	fileが存在し、カレントプロセスで読み込み可能な場合true
+
+-s file
+	fileが存在し、そのサイズがゼロより大きい場合true
+
+-t fd
+true if file descriptor number fd is open and associated with a terminal device. (note: fd is not optional)
+
+-u file
+	fileが存在し、setuidビットがセットされている場合true
+
+-w file
+	fileが存在し、カレントプロセスで書き込み可能な場合true
+
+-x file
+	fileが存在し、カレントプロセスで実行可能な場合true
+	fileが存在しディレクトリの場合は、カレントプロセスはディレクトリ内のサーチ権限をもつ
+
+-z string
+	stringの長さがゼロの場合true
+
+-L file
+	fileが存在し、それがシンボリックリンクの場合true
+
+-O file
+true if file exists and is owned by the effective user ID of this process.
+
+-G file
+true if file exists and its group matches the effective group ID of this process.
+
+-S file
+	fileが存在し、それがソケットの場合true
+
+-N file
+	fileが存在し、そのアクセス時刻が更新時刻以降でない場合true
+
+file1 -nt file2
+	file1が存在し、file2より新しい場合true
+
+file1 -ot file2
+	file1が存在し、file2より古い場合true
+
+file1 -ef file2
+	file1とfile2が存在し、それが同じファイルを参照している場合true
+
+string = pattern	(obsolete)
+string == pattern
+	stringがpatternにマッチする場合true
+
+string != pattern
+	stringがpatternにマッチしない場合true
+
+string =~ regexp
+	stringが正規表現regexpにマッチする場合true
+If the option RE_MATCH_PCRE is set regexp is tested as a PCRE regular expression using the zsh/pcre module, else it is tested as a POSIX extended regular expression using the zsh/regex module.
+Upon successful match, some variables will be updated; no variables are changed if the matching fails.
+If the option BASH_REMATCH is set the array BASH_REMATCH is set to the substring that matched the pattern followed by the substrings that matched parenthesised subexpressions within the pattern; otherwise, the scalar parameter MATCH is set to the substring that matched the pattern and and the array match to the substrings that matched parenthesised subexpressions.
+
+
+string1 < string2
+	string1がstring2よりASCII文字で前に出現する場合true
+
+string1 > string2
+	string1がstring2よりASCII文字で後に出現する場合true
+
+exp1 -eq exp2
+	exp1がexp2と数値的に等しい場合true
+
+exp1 -ne exp2
+	exp1がexp2と数値的に等しくない場合true
+
+exp1 -lt exp2
+true if exp1 is numerically less than exp2.
+
+exp1 -gt exp2
+true if exp1 is numerically greater than exp2.
+
+exp1 -le exp2
+true if exp1 is numerically less than or equal to exp2.
+
+exp1 -ge exp2
+true if exp1 is numerically greater than or equal to exp2.
+
+( exp )
+	expがtrueの場合true
+
+! exp
+	expがfalseの場合true
+
+exp1 && exp2
+	exp1とexp2がともにtrueの場合true
+
+exp1 || exp2
+	exp1かexp2のいずれかがtrueの場合true
+
+Normal shell expansion is performed on the file, string and pattern arguments, but the result of each expansion is constrained to be a single word, similar to the effect of double quotes.
+However, pattern metacharacters are active for the pattern arguments; the patterns are the same as those used for filename generation, see Filename Generation, but there is no special behaviour of ‘/’ nor initial dots, and no glob qualifiers are allowed.
+
+
+In each of the above expressions, if file is of the form ‘/dev/fd/n’, where n is an integer, 
+上記の表現でfileが`/dev/fd/n'(ここで、nは整数)の形式の場合、/dev/fdディレクトリをサポートしないシステムでも
+testはnのディスクリプタのfileをオープンしようとする。
+
+In the forms which do numeric comparison, the expressions exp undergo arithmetic expansion as if they were enclosed in $((...)).
+算術比較の形式においては、表現expは$((...))のような算術表現
+
+For example, the following:
+
+	
+	[[ ( -f foo || -f bar ) && $report = y* ]] && print File exists.
+file fooかbarが存在し、reportが`y'で始まるかをテストし、その複合条件がtrueの場合、メッセージ`File exists.'を表示する。
+

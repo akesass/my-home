@@ -1,0 +1,33 @@
+#compdef up
+
+_up_dir_list(){
+
+	[[ "$PWD" == "/" ]] && return
+
+	typeset -i idx=1
+	local cur_dir
+	local nidx
+	typeset -a up_dir_list
+	typeset -a up_num_list
+
+	cur_dir="$PWD"
+	up_dir_list=()
+	up_num_list=()
+
+	until [[ "$cur_dir" == "/" ]]
+	do
+		cur_dir=$(dirname "$cur_dir")
+		nidx=$(printf "%2d" $idx)
+		up_dir_list+=("${nidx} -- ${cur_dir}")
+		up_num_list+=(${idx})
+		(( ++idx ))
+	done
+
+	compadd -l -d up_dir_list "${up_num_list[@]}"
+}
+
+_arguments \
+	':up number:_up_dir_list' \
+
+
+

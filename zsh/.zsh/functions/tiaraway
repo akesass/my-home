@@ -1,0 +1,24 @@
+# vim: filetype=zsh
+################################################################################
+# usage: down
+################################################################################
+function tiaraway(){
+	local prev_ifs=$IFS
+	local dir
+	IFS="
+"
+	
+	while read dir
+	do
+		# 先頭が`#'で始まる場合は、コメント
+		echo "$dir" | grep -q '^#'
+		if [ $? -eq 0 ]; then
+			continue
+		fi
+		if [ -d "$dir" ]; then
+			pushd "$dir" > /dev/null
+		else
+			echo "Warning! no such directory $dir"
+		fi
+	done
+}

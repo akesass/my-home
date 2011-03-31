@@ -1,0 +1,19 @@
+# vim: filetype=zsh
+
+function lcm2(){
+	typeset -i arg1=$1
+	typeset -i arg2=$2
+	(( arg1 * arg2 / gcd2(arg1, arg2) ))
+}
+function lcm(){
+	typeset -i tmp=$1;
+
+	while (( $# >= 2 ))
+	do
+		shift
+		(( tmp = lcm2(tmp, $1) ))
+	done
+	(( tmp ))
+}
+
+lcm "$@"

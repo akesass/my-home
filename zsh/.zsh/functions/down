@@ -1,0 +1,51 @@
+# vim: filetype=zsh
+################################################################################
+# usage: down
+################################################################################
+function down(){
+
+	local auto_down=false
+	typeset -a dir_list
+
+	# 引数があれば、auto-downモード
+	[[ -n "$1" ]] && auto_down=true
+
+	PS3="input number you want to move (put 'q', if you want to exit):"
+
+	unsetopt auto_pushd
+	{
+		while true
+		do
+
+			# N:sets the NULL_GLOB option for the current pattern
+			# D:sets the GLOB_DOTS option for the current pattern
+			dir_list=( *(#q/ND) )
+
+			for dir in *(#q@ND)
+			do
+#				[[ -d $(realpath "${dir}") ]] && dir_list+=( ${dir} )
+				# realpathがない場合に対応。cdが成功すればディレクトリ
+				(cd "${dir}" 2>/dev/null) && dir_list+=( ${dir} )
+			done
+
+
+			# サブディレクトリが存在しない場合は、終了
+			[[ ${#dir_list} == 0 ]] && return
+
+			# サブディレクトリが１個で、auto-downモードの場合は、選択リストを出さずにcd
+			if $auto_down && [[ ${#dir_list} == 1 ]]; then
+				cd ${dir_list[1]}
+			else
+				select name in "${dir_list[@]}"
+				do
+					[[ "$REPLY" == "q" ]] && return
+					cd "$name" && break
+				done
+			fi
+		done
+	} always {
+		setopt auto_pushd
+	}
+
+}
+
