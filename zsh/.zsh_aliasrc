@@ -1,0 +1,39 @@
+# vim: filetype=zsh
+
+#alias gls='gls -aF --color=auto --show-control-chars'
+#alias gll='gls -l'
+#alias ls='ls -vaF'
+alias l='\ls'
+alias ls='ls -aF --color=auto --show-control-chars'
+alias ll='ls -l'
+alias mkdir='mkdir -p'
+alias cls='clear'
+alias dirs='dirs -v'
+alias grep='grep --color'
+alias f='open .'
+alias vi='vim -u NONE'
+alias vimhelp='vim -c "help|only"'
+alias z='zsh'
+alias gvim='open -a $HOME/Applications/MacVim.app "$@"'
+
+################################################################################
+# setopt CORRECT_ALL対策
+################################################################################
+alias mv='nocorrect mv'
+alias cp='nocorrect cp'
+alias mkdir='nocorrect mkdir'
+alias ln='nocorrect ln'
+
+################################################################################
+# suffix alias (zsh only)
+# alias -s 拡張子=コマンド
+################################################################################
+#alias -s txt=vim
+
+################################################################################
+# screen vim
+################################################################################
+alias :s='screen'
+
+
+
