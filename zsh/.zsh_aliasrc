@@ -14,6 +14,7 @@ alias f='open .'
 alias vi='vim -u NONE'
 alias vimhelp='vim -c "help|only"'
 alias z='zsh'
+alias h='history'
 alias gvim='open -a $HOME/Applications/MacVim.app "$@"'
 
 ################################################################################
