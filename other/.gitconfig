@@ -1,0 +1,44 @@
+################################################################################
+# .gitconfig
+################################################################################
+# `#' or `;' 以降はコメント
+
+[user]
+	name = akkyo
+	email = akkyosass@gmail.com
+[color]
+	# auto:
+	# true(always), false(never) or auto
+	# git-branchの出力をカラー表示にする
+	branch = true
+	diff = true
+	# ページャー使用時の出力をカラー表示にする
+	pager = true
+	# git-statusの出力をカラー表示にする
+	status = true
+
+[color.branch]
+	# slot = value
+	# slot := current|local|remote|plain
+	# current (the current branch), local (a local branch),
+	# remote (a tracking branch in refs/remotes/), plain (other refs)
+	# value := foreground-color background-color attribute
+	# スペース区切り。attributeの位置はどこでもよい。
+	# color := normal|black|red|green|yellow|blue|magenta|cyan|white
+	# attribute := bold|dim|ul|blink|reverse
+[color.diff]
+	# slot = value
+	# slot := plain|metal|frag|old|new|commit|whitespace
+	# plain (context text), meta (metainformation), flag(hunk header)
+	# old (removed lines), new (added lines), commit (commit header)
+	# whitespace (highlighting dubious whitespace)
+	old = black white
+	new = red ul
+[color.status]
+	header = blue white
+	added = red bold
+	changed = ul red
+	untracked = yellow
+
+
+

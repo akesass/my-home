@@ -1,3 +1,4 @@
+
 16. Options
 16.1 Specifying Options		
 16.2 Description of Options		
@@ -55,12 +56,18 @@ Hence (unless KSH_OPTION_PRINT is set), ‘setopt’ shows all options whose set
 ####################################################################################################
 # 16.2.1 Changing Directories
 ####################################################################################################
+通常コマンドとして実行できないコマンドが発行されたた場合に、そのコマンドがディレクトリ名だった場合、
+そのディレクトリにcdする。
 AUTO_CD (-J)
-
-If a command is issued that can’t be executed as a normal command, and the command is the name of a directory, perform the cd command to that directory. 
-AUTO_PUSHD (-N)
+<mine>setopt AUTO_CD</mine>
+<memo></memo>
 
 Make cd push the old directory onto the directory stack. 
+cdするときに、ディレクトリスタックにpushdする
+AUTO_PUSHD (-N)
+<mine>setopt AUTO_PUSHD</mine>
+<memo></memo>
+
 
 cdコマンド(AUTO_CDがセットされている場合の暗黙的な場合も含む)の引数がディレクトリではなく、スラッシュで始まらない場合に
 引数の前に`~'があるものとしてファイル名展開を試みる
@@ -197,9 +204,11 @@ In the case of BASH_AUTO_LIST, this means that the list will be delayed to the t
 LIST_BEEP <D>
 
 Beep on an ambiguous completion. More accurately, this forces the completion widgets to return status 1 on an ambiguous completion, which causes the shell to beep if the option BEEP is also set; this may be modified if completion is called from a user-defined widget. 
-LIST_PACKED
 
+LIST_PACKED
 Try to make the completion list smaller (occupying less lines) by printing the matches in columns with different widths. 
+<mine>setopt LIST_PACKED</mine>
+
 LIST_ROWS_FIRST
 
 Lay out the matches in completion lists sorted horizontally, that is, the second match is to the right of the first one, not under it as usual. 
@@ -214,6 +223,7 @@ Then when completion is requested again, remove the first match and insert the s
 When there are no more matches, go back to the first one again.
 reverse-menu-complete may be used to loop through the list in the other direction.
 このオプションは、AUTO_MENUを上書きする。
+<mine>setopt MENU_COMPLETE</mine>
  
 
 REC_EXACT (-S)
@@ -229,8 +239,11 @@ If a pattern for filename generation is badly formed, print an error message. (I
 <mine>setopt BAD_PATTERN</mine>
 
 BARE_GLOB_QUAL <Z>
-In a glob pattern, treat a trailing set of parentheses as a qualifier list, if it contains no ‘|’, ‘(’ or (if special) ‘~’ characters.
+In a glob pattern, treat a trailing set of parentheses as a qualifier list, 
+if it contains no ‘|’, ‘(’ or (if special) ‘~’ characters.
 See Filename Generation.
+<mine>setopt BRACE_EXPAND</mine>
+<memo>デフォルトではsetoptなのでmineは必要ない</memo>
  
 
 BRACE_CCL
@@ -251,8 +264,10 @@ CSH_NULL_GLOB <C>
 If a pattern for filename generation has no matches, delete the pattern from the argument list; do not report an error unless all the patterns in a command have no matches.
 Overrides NOMATCH.
  
+# =ファイル名で、ファイルのフルパスに展開する
 EQUALS <Z>
-Perform = filename expansion. (See Filename Expansion.) 
+<mine>setopt EQUALS</mine>
+<memo>デフォルトではsetoptなのでmineは必要ない</memo>
 
 EXTENDED_GLOB
 `#', `~', `^'をファイル名生成などのパターンの一部として扱う。
@@ -274,6 +289,7 @@ This option is provided for backwards compatibility only: globbing is always per
 
 GLOB_DOTS (-4)
 Do not require a leading ‘.’ in a filename to be matched explicitly. 
+`.'から始まるファイル名に明示的にマッチさせることを要求しない。
 <mine>setopt GLOB_DOTS</mine>
 
 GLOB_SUBST <C> <K> <S>
@@ -376,7 +392,8 @@ Note that there is no warning when a local parameter is assigned to in a nested 
 APPEND_HISTORY <D>
 
 If this is set, zsh sessions will append their history list to the history file, rather than replace it.
-Thus, multiple parallel zsh sessions will all have the new entries from their history lists added to the history file, in the order that they exit.
+Thus, multiple parallel zsh sessions will all have the new entries from their history lists added to the history file,
+in the order that they exit.
 The file will still be periodically re-written to trim it when the number of lines grows 20% beyond the value specified by $SAVEHIST (see also the HIST_SAVE_BY_COPY option).
  
 
@@ -387,7 +404,7 @@ Perform textual history expansion, csh-style, treating the character ‘!’ spe
 EXTENDED_HISTORY <C>
 Save each command’s beginning timestamp (in seconds since the epoch) and the duration (in seconds) to the history file.
 The format of this prefixed data is: 
-‘:<beginning time>:<elapsed seconds>:<command>’. 
+`:<beginning time>:<elapsed seconds>:<command>'
 
 
 HIST_ALLOW_CLOBBER
@@ -413,6 +430,7 @@ On recent operating systems this may provide better performance, in particular a
 HIST_FIND_NO_DUPS
 When searching for history entries in the line editor, do not display duplicates of a line previously found,
 even if the duplicates are not contiguous. 
+ヒストリサーチ時に以前に見つかった
 
 HIST_IGNORE_ALL_DUPS
 If a new command line being added to the history list duplicates an older one, the older command is removed from the list (even if it is not the previous event). 

@@ -1,0 +1,46 @@
+# shell
+startup_message off
+
+# shell command
+shell zsh
+
+altscreen on
+
+
+# hardstatus
+# hardstatus [on|off]
+#hardstatus on
+
+hardstatus alwayslastline "[%02c] %`%-w%{=b bw}%n %t%{-}%+w"
+
+termcap xterm 'hs:ts=\E2];:fs=\007:ds=\E]0;screen\007'
+terminfo xterm 'hs:ts=\E2];:fs=\007:ds=\E]0;screen\007'
+# スクリーン起動時にターミナルをリサイズさせないようにする設定
+termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+#termcapinfo kterm-color 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+
+bind w windowlist -b
+
+# - Command: focus (`C-a <Tab>')
+bind j focus down
+bind ^J focus down
+bind k focus up
+bind ^K focus up
+bind t focus top
+bind ^T focus top
+bind b focus bottom
+bind ^B focus bottom
+
+# - Command: only (`C-a Q')
+bind o only
+bind ^O only
+
+# - Command: remove (`C-a X')
+bind q only
+bind ^Q only
+
+
+
+
+
+

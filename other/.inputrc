@@ -1,0 +1,18 @@
+################################################################################
+# .inputrc
+# readline初期化ファイル
+# 空行は無視される。`#'で始まる行はコメント。`$'で始まる行は条件文。
+# それ以外の行はキー割り当てと変数の設定。
+################################################################################
+set editing-mode vi
+set convert-meta off
+set meta-flag on
+set output-meta on
+set input-meta on
+
+$if Bash
+	set bell-style visible
+	# Tabキーで補完候補を順番に自動挿入する
+	TAB: menu-complete
+$endif
+
