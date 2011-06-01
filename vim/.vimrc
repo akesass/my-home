@@ -60,7 +60,7 @@
 " ファイルを読込む時にトライする文字エンコードの順序を確定する。漢字コード自
 " 動判別機能を利用する場合には別途iconv.dllが必要。iconv.dllについては
 " README_j.txtを参照。ユーティリティスクリプトを読み込むことで設定される。
-source $HOME/encode_japan.vim
+source $HOME/.vim/private/encode_japan.vim
 " メッセージを日本語にする (Windowsでは自動的に判断・設定されている)
 if !(has('win32') || has('mac')) && has('multi_lang')
   if !exists('$LANG') || $LANG.'X' ==# 'X'
